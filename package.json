@@ -1,0 +1,12 @@
+{
+	"name": "xampp-alias-tool",
+	"main": "index.html",
+	"version": "0.0.1",
+	"description": "XAMPP Alias Tool",
+	"author": "Pedro Realinho",
+	"window": {
+		"min_height": 300,
+		"min_width": 500
+	},
+	"license": "ISC"
+}

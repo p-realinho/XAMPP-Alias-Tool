@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=7">
+	<title>XAMPP Alias Tool</title>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/less" href="res/style.less">
+</head>
+<body>
+	<main>
+		<section class="browser">
+			<div class="browserui">
+				<div class="toolbar">
+					<div class="tabs">
+						<div class="tab">{{name}}</div>
+					</div>
+					<div class="controls">
+						<div class="close"></div>
+						<div class="max"></div>
+						<div class="min"></div>
+					</div>
+				</div>
+				<div class="navbar row-12">
+					<div class="controls col-2 row-11">
+						<i class="col-1">&nbsp;</i>
+						<i class="col-3 fa fa-chevron-left"></i>
+						<i class="col-3 fa fa-chevron-right"></i>
+						<i class="col-3 fa fa-repeat"></i>
+						<i class="col-1">&nbsp;</i>
+					</div>
+					<div class="addr col-9">
+						127.0.0.1/
+						<input type="text" v-model.sync="name">
+					</div>
+					<i class="menu fa fa-bars col-1"></i>
+				</div>
+				<div class="webview row-11">
+					<div class="col-5">
+						Set the XAMPP root path
+						<input type="file" v-model="xampp" nwdirectory>
+					</div>
+					<div class="col-1"><br></div>
+					<div class="col-5">
+						Set your project's path
+						<input type="file" v-model="dir" nwdirectory>
+					</div>
+					<button class="col-11 accent big" onclick="createConf()">
+						Create {{name}}.conf
+					</button>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/2.6.1/less.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+	<script>
+		var fs = require('fs'),
+			mkdirp = require('mkdirp');
+
+		var vue = new Vue({
+			el: 'main',
+			data: {
+				xampp: '',
+				name: 'ProjectName',
+				dir: ''
+			}
+		});
+
+		function prepareXampp(){
+			// create alias folder
+			// edit httpd.conf / add include
+		}
+		function createConf(name, dir){
+			var name = vue.name,
+				dir = vue.dir,
+				xampp = vue.xampp;
+
+			var string = '<Directory "'+dir+'">\nOptions Indexes FollowSymLinks Includes ExecCGI\nAllowOverride All\nRequire all granted\n</Directory>\nAlias /'+name+' "'+dir+'"';
+			console.log(string, xampp);
+			mkdirp(xampp+'/apache/conf/alias', function(){
+				fs.writeFile(xampp+'\\apache\\conf\\alias\\'+name+'.conf', string);
+			});
+		}
+
+		// <Directory "/Users/Pedro Realinho/Desktop/Espaco Criativo">
+		// Options Indexes FollowSymLinks Includes ExecCGI
+		// AllowOverride All
+		// Require all granted
+		// </Directory>
+		// Alias /ec "/Users/Pedro Realinho/Desktop/Espaco Criativo"
+	</script>
+</body>
+</html>

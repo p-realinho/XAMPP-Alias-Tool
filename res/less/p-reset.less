@@ -1,0 +1,212 @@
+// ------ Imports ------
+
+@import 'https://fonts.googleapis.com/css?family=Droid+Serif|Lato';
+
+@import 'p-reset/grid.less';
+@import 'p-reset/reset.less';
+
+// ------ Vars ------
+// Fonts
+@bodyfont: 'Lato', sans-serif;
+@titlefont: 'Droid Serif', serif;
+
+// Colors
+@white: #fff;
+@gray: #efeee5;
+@black: #222;
+
+@accent: @orange;
+@accentShadow: shade(@accent, 14%);
+
+@orange: #fb7a24;
+@blue: #2a5d84;
+@green: #5e8949;
+
+// Sizes
+@basefont: 14px * 1;
+@baseline: @basefont * 1.5;
+
+@x2baseline: @baseline * 2;
+@x3baseline: @baseline * 3;
+@x4baseline: @baseline * 4;
+
+@navheight: @x3baseline;
+
+@pagePadding: @baseline * 4;
+@pagePadding--tablet: @baseline;
+@pagePadding--phone: @baseline / 2;
+
+// Media Queries
+@tablet: ~'(max-width: 900px)';
+@phone: ~'(max-width: 600px)';
+
+// Others
+@cubic-bezier: cubic-bezier(.5,0,0,1);
+
+// ------ Mixins ------
+
+.pagePadding{
+	padding-left: @pagePadding; padding-right: @pagePadding;
+	@media @tablet{ padding-left: @pagePadding--tablet; padding-right: @pagePadding--tablet; }
+	@media @phone{ padding-left: @pagePadding--phone; padding-right: @pagePadding--phone; }
+	box-sizing: border-box;
+}
+.pageMargin{
+	margin-left: @pagePadding; margin-right: @pagePadding;
+	@media @tablet{ margin-left: @pagePadding--tablet; margin-right: @pagePadding--tablet; }
+	@media @phone{ margin-left: @pagePadding--phone; margin-right: @pagePadding--phone; }
+}
+
+.shadow(@color: @gray; @size: 1; @op: .8; @y: 1;){
+	@sc1: shade(saturate(@color, 60%), 40%);
+	@shadowColor: rgba(red(@sc1), green(@sc1), blue(@sc1), @op);
+	box-shadow+: 0 ((@baseline * (.5 * @size)) * @y) (@baseline * @size) -((@baseline / 2) * @size) @shadowColor;
+}
+
+.grid(10);
+.grid(10, 4);
+.grid(11);
+.grid(11, 4);
+.grid(12);
+.grid(12, 4);
+
+// ------ Reset ------
+
+html, body{
+	background: @accent;
+	color: @white;
+	font-family: @bodyfont;
+	font-size: @basefont;
+	line-height: @baseline;
+	margin: 0 auto; padding: 0;
+	min-width: 500px; max-width: 800px;
+}
+
+header, main, footer, section, article, div{ .clearfix; }
+
+a, a:link, a:visited, a:focus, a:hover, a:active{
+	color: inherit;
+	text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, p{
+	margin: 0; padding: 0;
+	margin-bottom: @baseline;
+}
+
+// Headers
+h1, h2, h3, h4, h5, h6{ margin-top: @baseline / 2; }
+h1{ font-size: @basefont * 2.25; font-weight: 300; line-height: @baseline * 1.5;}
+h2{ font-size: @basefont * 1.75; font-weight: 300; line-height: @baseline * 1.25;}
+h3{ font-size: @basefont * 1.50; font-weight: 400;}
+h4{ font-size: @basefont * 1.25; font-weight: 400;}
+h5{ font-size: @basefont * 1.00; font-weight: 700;}
+h6{ font-size: @basefont / 1.25; font-weight: 700;}
+h1, h3, h5{
+	font-family: @titlefont;
+}
+h2, h4, h6{
+	font-family: @bodyfont;
+}
+//
+ul, ol{
+	margin: 0; padding: 0;
+	margin-bottom: @baseline;
+	list-style: none;
+	list-style-type: none;
+	li{
+		list-style: none;
+		list-style-type: none;
+		line-height: @baseline * 1.25;
+		ul, ol{
+			padding-left: @baseline * 1.5;
+			margin: 0;
+		}
+	}
+}
+
+button, input, textarea{
+	border: none;
+	background: @white;
+	color: #444;
+	font-family: inherit;
+	font-size: @basefont;
+	margin: 0; padding: 0;
+	margin-top: @baseline / 4;
+	border-radius: 3px;
+	.shadow(@gray, 1, .2);
+}
+
+.button{
+	line-height: @baseline * 1.5;
+	padding-left: @baseline / 2; padding-right: @baseline / 2;
+	cursor: pointer;
+	&.accent{
+		background: @accent;
+		color: @white;
+		.shadow(@accent, 1, .8);
+		transition: all .6s @cubic-bezier;
+		&:hover{
+			background: lighten(@accent, 3%);
+			.shadow(@accent, 1.5, 1);
+		}
+	}
+	&.big{
+		line-height: @baseline * 2;
+		margin-top: @baseline;
+	}
+	&[disabled], &[disabled="disabled"], &.disabled{
+	}
+}
+button, input[type="submit"], input[type="button"]{ .button; }
+
+.input{
+	border: 1px solid @accent;
+	line-height: @baseline;
+	display: block;
+	width: 100%;
+	padding: (@baseline / 4);
+	&[disabled], &[disabled="disabled"], &.disabled{
+	}
+}
+input:not([type="submit"]):not([type="button"]){
+	.input;
+}
+
+/**
+ * Classes
+ */
+
+// Text-Aligns
+.talignleft{ text-align: left; }
+.taligncenter{ text-align: center; }
+.talignright{ text-align: right; }
+
+// Margins / Paddings
+.noPadding, .no-padding{ padding: 0; }
+.noMargin, .no-margin{ margin: 0; }
+
+.baselinePaddingSides, .baseline-padding-sides{ padding-left: @baseline; padding-right: @baseline; }
+.baselinePaddingEnds, .baseline-padding-ends{ padding-top: @baseline; padding-bottom: @baseline; }
+
+// Media Hides
+.phone-hide{
+	@media @phone{ display: none; }
+}
+.tablet-hide{
+	@media @tablet{ display: none; }
+}
+
+// Widths
+.full-width, .width-100{ width: 100%; }
+.half-width, .width-50{ width: 50%; }
+
+// Nav Menu - WIP
+body > header nav{
+	ul li{
+		display: inline-block;
+		a{
+			padding-left: @baseline / 2; padding-right: @baseline / 2;
+		}
+	}
+}
