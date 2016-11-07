@@ -6,7 +6,8 @@
 	"author": "Pedro Realinho",
 	"window": {
 		"min_height": 300,
-		"min_width": 500
-	},
-	"license": "ISC"
+		"min_width": 500,
+		"frame": false,
+		"transparent": true
+	}
 }

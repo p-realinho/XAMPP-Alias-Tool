@@ -8,8 +8,9 @@ main{
 			border-radius: 4px;
 			margin: @baseline;
 			overflow: hidden;
-			.shadow(@accent, 2);
+			.shadow(@accentShadow, 2);
 			.toolbar{
+				-webkit-app-region: drag;
 				background: #333;
 				color: @white;
 				padding-top: @baseline / 4;
@@ -51,6 +52,8 @@ main{
 						float: right;
 						border-radius: @baseline;
 						margin: 0 (@baseline / 8);
+						cursor: pointer;
+						-webkit-app-region: no-drag;
 						&.min   { border: @baseline / 3 solid #1c4; }
 						&.max   { border: @baseline / 3 solid #fb3; }
 						&.close { border: @baseline / 3 solid #f54; }

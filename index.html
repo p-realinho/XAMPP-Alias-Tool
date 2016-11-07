@@ -7,6 +7,7 @@
 	<title>XAMPP Alias Tool</title>
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/less" href="res/style.less">
+	<!-- <link rel="stylesheet" href="res/style.css"> -->
 </head>
 <body>
 	<main>
@@ -17,9 +18,9 @@
 						<div class="tab">{{name}}</div>
 					</div>
 					<div class="controls">
-						<div class="close"></div>
-						<div class="max"></div>
-						<div class="min"></div>
+						<div onClick="win.close();" class="close"></div>
+						<div onClick="win.showDevTools();" class="max"></div>
+						<div onClick="win.minimize();" class="min"></div>
 					</div>
 				</div>
 				<div class="navbar row-12">
@@ -59,7 +60,9 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
 	<script>
 		var fs = require('fs'),
-			mkdirp = require('mkdirp');
+			mkdirp = require('mkdirp'),
+			gui = require('nw.gui'),
+			win = gui.Window.get();
 
 		var vue = new Vue({
 			el: 'main',
